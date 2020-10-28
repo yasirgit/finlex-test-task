@@ -1,34 +1,39 @@
 version: "3.3"
 services:
-    robotcontrollerapi-service:
+
+    web:
         build:
-            context: ./robotcontrollerapi
+            context: ./
             dockerfile: Dockerfile
-        container_name: robotcontrollerapi_restapi
+        container_name: finlex_restapi
         depends_on:
-            - robotpositiondb-service
+            - db
         volumes:
-            - ./robotcontrollerapi/:/var/www/html/robotcontrollerapi
+            - ./:/usr/src/app
         ports:
             - 3000:3000
-    robotpositiondb-service:
-        container_name: robotcontrollerapi_db
+
+    db:
+        container_name: finlex_db
         image: mysql:8.0
         command: --default-authentication-plugin=mysql_native_password
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: robot-position-db
+            MYSQL_DATABASE: robot-db
             MYSQL_USER: admin
             MYSQL_PASSWORD: admin
         ports:
-            - 6033:3306
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin:4.7
-        depends_on:
-            - robotpositiondb-service
-        ports:
-            - "30002:80"
+            - 3307:3306
+
+    jenkins:
+        image: jenkins:alpine
+        container_name: jenkins
+        user: jenkins
+        volumes:
+            - ./yjenkins/:/var/jenkins_home
         environment:
-            - PMA_HOST=robotpositiondb-service
-            - PMA_PORT= 3306
+            JENKINS_HOST_HOME: "./yjenkins/"
+        ports:
+            - "8080:8080"
+            - "5000:5000"
+            - "50000:50000"

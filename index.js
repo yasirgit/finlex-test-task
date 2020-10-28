@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
-require("./routes/robotcommand.routes")(app);
+require("./robotcontrollerapi/routes/robotcommand.routes")(app);
 
 //ROUTES
 app.get('/', (req, res) => {
