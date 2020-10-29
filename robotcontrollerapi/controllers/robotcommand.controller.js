@@ -1,61 +1,69 @@
-const RobotCommand = require('../models/robotcommand.model');
+const RobotCommandService = require('../services/robotcommand.service');
+const Validator = require('fastest-validator');
+const RobotCommandModel = require('../models/robotcommand.model');
 
 // store new command
 exports.create = (req, res) => {
     // Validate request
     if (!req.body) {
-        res.status(400).send({
-            message: "Content can not be empty!"
+        return res.status(400).send({
+            message: "Content could not be empty!"
         });
     }
 
-    const commands = req.params.commands;
-    let turnsOnCommands = '';
+    const commandTurn = req.body.turn;
+    const commandStep = req.body.step;
 
-    switch (commands.toLowerCase()) {
-        case 'right':
-            turnsOnCommands = 'Right';
-            break;
-        case 'left':
-            turnsOnCommands = 'Left';
-            break;
-        case 'backward':
-            turnsOnCommands = 'Back';
-            break;
-        default:
-            turnsOnCommands = 'Forward';
-            break;
+    const requestValidator = new Validator();
+
+    const validatorSchema = {
+        turn: { type: "string", min: 4, max: 8 },
+        step: { type: "number", integer: true }
+    };
+
+    const validatorResponse = requestValidator.validate(
+        { turn: commandTurn, step: commandStep },
+        validatorSchema
+    );
+
+    if (validatorResponse !== true) {
+        return res.status(400).json({
+            message: "Validation failed",
+            errors: validatorResponse
+        });
     }
 
     // Robot command
-    const robot_command = new RobotCommand({
-        turn: turnsOnCommands,
-        step: req.body.step,
+    const robot_command = new RobotCommandModel({
+        turn: commandTurn,
+        step: commandStep,
         command_date_time: new Date()
     });
 
-    // Stor in DB
-    RobotCommand.create(robot_command, (err, data) => {
+    // Store in DB
+    RobotCommandService.create(robot_command, (err, data) => {
         if (err) {
-            res.status(500).send({
+            return res.status(500).json({
                 message:
                     err.message || "some error while storing record."
             });
         } else {
-            res.status(201).send(data);
+            return res.status(201).json(data);
         }
     });
 
 };
 
 exports.currentPosition = (req, res) => {
-    RobotCommand.currentPosition((err, data) => {
-        if (err)
-            res.status(500).send({
+    RobotCommandService.currentPosition((err, data) => {
+        if (err) {
+            return res.status(500).json({
                 message:
                     err.message || "Some error occurred while retrieving current position."
             });
-        else res.send(data);
+        } else {
+            res.status(200).json(data);
+        }
     });
 };
 
