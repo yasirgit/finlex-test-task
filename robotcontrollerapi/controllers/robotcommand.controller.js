@@ -1,6 +1,5 @@
 const RobotCommandService = require('../services/robotcommand.service');
 const Validator = require('fastest-validator');
-const RobotCommandModel = require('../models/robotcommand.model');
 
 // store new command
 exports.create = (req, res) => {
@@ -33,15 +32,14 @@ exports.create = (req, res) => {
         });
     }
 
-    // Robot command
-    const robot_command = new RobotCommandModel({
+    const robot_command = {
         turn: commandTurn,
         step: commandStep,
         command_date_time: new Date()
-    });
+    };
 
     // Store in DB
-    RobotCommandService.create(robot_command, (err, data) => {
+    RobotCommandService.storePosition(robot_command, (err, data) => {
         if (err) {
             return res.status(500).json({
                 message:
