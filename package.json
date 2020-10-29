@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "jest",
-    "api-tests": "newman run robotcontrollerapi/tests/Finlex.postman_collection.json"
+    "api-tests": "newman run robotcontrollerapi/tests/Heroku_Finlex.postman_collection.json"
   },
   "author": "Yasir Arefin",
   "license": "ISC",
