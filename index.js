@@ -7,9 +7,6 @@ const bodyParser = require('body-parser');
 const swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json');
 
-// app.use(bodyParser.json());
-
-require("./robotcontrollerapi/routes/robotcommand.routes")(app);
 
 const port = process.env.PORT || 5000;
 
@@ -25,6 +22,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
+require("./robotcontrollerapi/routes/robotcommand.routes")(app);
 
 //ROUTES
 app.get('/', (req, res) => {
@@ -36,6 +34,7 @@ app.get('/docs', function (req, res) {
 });
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 // set port, listen for requests
 app.listen(port, () => {

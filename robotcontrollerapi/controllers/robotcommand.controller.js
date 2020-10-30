@@ -9,8 +9,8 @@ const Validator = require("fastest-validator");
 
 /**
  * Store new command
- * @param {import('express').Request} req - http request
- * @param {import('express').Response} res - http resposne
+ * @param {object} req - http request
+ * @param {object} res - http resposne
  * @returns json resposne
  */
 exports.create = (req, res) => {
@@ -66,8 +66,8 @@ exports.create = (req, res) => {
 
 /**
  * Get current position
- * @param {import('express').Request} req - http request
- * @param {import('express').Response} res - http resposne
+ * @param {object} req - http request
+ * @param {object} res - http resposne
  * @returns json resposne
  */
 exports.currentPosition = (req, res) => {
