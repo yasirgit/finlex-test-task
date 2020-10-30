@@ -1,0 +1,109 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Robot Controller API",
+        "description": "Robot Controller Application API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Roobot Command",
+            "description": "API for robot command"
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/v1/robot-command": {
+            "post": {
+                "tags": [
+                    "Command"
+                ],
+                "description": "Store new command",
+                "parameters": [
+                    {
+                        "name": "Command",
+                        "in": "body",
+                        "description": "Command to be excuted",
+                        "schema": {
+                            "$ref": "#/definitions/Command"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "New command is created",
+                        "schema": {
+                            "$ref": "#/definitions/Command"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/robot-current-position": {
+            "get": {
+                "tags": [
+                    "Position"
+                ],
+                "summary": "Get robot current position",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Position"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Command": {
+            "required": [
+                "turn",
+                "step"
+            ],
+            "properties": {
+                "turn": {
+                    "type": "string"
+                },
+                "step": {
+                    "type": "number"
+                }
+            }
+        },
+        "Position": {
+            "properties": {
+                "current-position": {
+                    "type": "string"
+                },
+                "current-position-date": {
+                    "type": "strin"
+                },
+                "last-position": {
+                    "type": "string"
+                },
+                "last-position-date": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
