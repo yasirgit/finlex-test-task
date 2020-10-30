@@ -1,47 +1,14 @@
 {
 	"variables": [],
 	"info": {
-		"name": "Finlex",
-		"_postman_id": "75b448d3-a9fa-45fc-a40d-7496db5d9e49",
+		"name": "Heroku",
+		"_postman_id": "8c78e337-01af-a05e-f223-f38030c26d3c",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Get current position",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;",
-							"",
-							"tests[\"Response time is less than 200ms\"] = responseTime < 300;"
-						]
-					}
-				}
-			],
-			"request": {
-				"url": "https://mighty-coast-15235.herokuapp.com/api/v1/robot-current-position",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"step\": 3\n}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "Add command",
+			"name": "Add on heroku",
 			"event": [
 				{
 					"listen": "test",
@@ -67,7 +34,40 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"turn\": \"Ri\",\n\t\"step\": 4\n}"
+					"raw": "{\n\t\"turn\": \"Left\",\n\t\"step\": 4\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get current position heroku",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"tests[\"Response time is less than 300ms\"] = responseTime < 400;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "https://mighty-coast-15235.herokuapp.com/api/v1/robot-current-position",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"step\": 3\n}"
 				},
 				"description": ""
 			},
