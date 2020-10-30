@@ -39,6 +39,8 @@ After connecting to mysql db (docker container) run this sql file __robot_positi
 Run following command after adding or editing comments
 ```
 npm run doc
+
+- https://mighty-coast-15235.herokuapp.com/docs
 ```
 
 
