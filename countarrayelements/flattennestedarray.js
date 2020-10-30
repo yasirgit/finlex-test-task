@@ -1,3 +1,10 @@
+// @ts-check
+
+/**
+ * Array flatter
+ * @param {Array} givenArray Array to be flattened 
+ * @returns Flattened Array
+ */
 function flattenNestedArray(givenArray) {
   var flattenedArray = [];
   for (var i = 0; i < givenArray.length; i++) {

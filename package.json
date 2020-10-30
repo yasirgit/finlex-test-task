@@ -9,6 +9,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "jest",
+    "doc": "jsdoc ./robotcontrollerapi/ ./countarrayelements/ -r -c conf.json",
     "api-tests": "newman run robotcontrollerapi/tests/Heroku_Finlex.postman_collection.json"
   },
   "author": "Yasir Arefin",
@@ -18,13 +19,16 @@
     "babel-preset-env": "^1.6.1",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
     "express": "^4.17.1",
     "fastest-validator": "^1.8.0",
     "jest": "^24.9.0",
     "joi": "^17.3.0",
+    "jsdoc": "^3.6.6",
     "mysql": "^2.18.1",
     "newman": "^5.2.0",
     "nodemon": "^2.0.6",
+    "path": "^0.12.7",
     "request": "^2.88.2",
     "swagger-jsdoc": "^5.0.0",
     "swagger-ui-express": "^4.1.4"

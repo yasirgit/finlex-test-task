@@ -1,20 +1,39 @@
+// @ts-check
 const express = require('express');
+const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 
 const swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json');
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 require("./robotcontrollerapi/routes/robotcommand.routes")(app);
+
+const port = process.env.PORT || 5000;
+
+app.set('port', port);
+app.use(express.static(__dirname + '/docs'));
+app.set('views', __dirname + '/docs');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+app.use(bodyParser.json());
+
 
 //ROUTES
 app.get('/', (req, res) => {
     res.send('We are @home');
 });
 
-const port = process.env.PORT || 5000;
+app.get('/docs', function (req, res) {
+    res.render('index.html');
+});
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

@@ -1,4 +1,9 @@
-// constructor
+// @ts-check
+
+/**
+ * RobotPositionModel
+ * @param {object} robot_position 
+ */
 exports.RobotPositionModel = function (robot_position) {
     this.command = robot_position.command;
     this.direction = robot_position.direction;
