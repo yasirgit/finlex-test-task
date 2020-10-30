@@ -11,7 +11,9 @@ After finishing the build process, change the *.env* file db configuration accor
 
 ### Heroku App
 ```
-https://mighty-coast-15235.herokuapp.com
+https://mighty-coast-15235.herokuapp.com 
+
+- Autometic deployment after each and every commits
 ````
 
 ### REST API
