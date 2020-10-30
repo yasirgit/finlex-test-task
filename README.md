@@ -3,6 +3,7 @@
 git clone git@github.com:yasirgit/finlex-test-task.git
 docker-compose up --build
 ```
+After finishing the build process, change the *.env* file db configuration according to the *docker-compose.yml* file
 
 ### Challenges
 1. __countarrayelements__ folder contains Challenge 1
