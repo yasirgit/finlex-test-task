@@ -21,10 +21,12 @@ Docker container: http://localhost:[port]/api-docs/
 
 ### Jenkins CI
 ```
-1. Create job (preferably, multibranch pipeline)
-2. Set gitrepo and credentials
-3. Build (Jenkins file pipeline script will be executed from the gitrepo)
-4. Both unit tests and integration tests run by pipleline
+1. Install Jenkins
+- docker run -p 8080:8080 -p 50000:50000 -d -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+2. Create job (preferably, multibranch pipeline)
+3. Set gitrepo and credentials
+4. Build (Jenkins file pipeline script will be executed from the gitrepo)
+5. Both unit tests and integration tests run by pipleline
 ```
 
 ### DB
