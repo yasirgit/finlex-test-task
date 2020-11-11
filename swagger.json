@@ -9,7 +9,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "mighty-coast-15235.herokuapp.com",
+    "host": "localhost:3000",
     "basePath": "/",
     "tags": [
         {
@@ -95,7 +95,7 @@
                     "type": "string"
                 },
                 "current-position-date": {
-                    "type": "strin"
+                    "type": "string"
                 },
                 "last-position": {
                     "type": "string"

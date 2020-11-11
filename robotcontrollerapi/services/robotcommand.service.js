@@ -20,6 +20,49 @@ const directionMapping = {
 };
 
 /**
+ * Robot Position On Input Command
+ * @param {string} previous_direction Previous direction from stored value, default +Y
+ * @param {number} position_x Previous x position from stored value, default 0
+ * @param {number} position_y Previous y position from stored value, default 0
+ * @param {Object} command Executed command
+ * @returns {Object} RobotPositionModel
+ */
+const robotPositionOnInputCommand = (previous_direction, position_x, position_y, command) => {
+
+    let new_position_x, new_position_y;
+
+    const new_direction = directionMapping[previous_direction][command.turn];
+
+    switch (new_direction) {
+        case '+X':
+            new_position_x = position_x + command.step;
+            new_position_y = position_y;
+            break;
+        case '-X':
+            new_position_x = position_x - command.step;
+            new_position_y = position_y;
+            break;
+        case '+Y':
+            new_position_y = position_y + command.step;
+            new_position_x = position_x;
+            break;
+        case '-Y':
+            new_position_y = position_y - command.step;
+            new_position_x = position_x;
+            break;
+    }
+
+    return new robotPosition.RobotPositionModel({
+        command: command.turn,
+        direction: new_direction,
+        position_x: new_position_x,
+        position_y: new_position_y,
+        last_position_date: command.command_date_time,
+    });
+
+}
+
+/**
  * Store a new command
  * @param {object} newCommand 
  * @param {object} result
@@ -36,68 +79,24 @@ exports.storePosition = (newCommand, result) => {
         }
 
         let robot_position = {};
-        let new_position_x, new_position_y;
 
         if (res[0]) {
 
-            const new_direction = directionMapping[res[0].direction][newCommand.turn];
-
-            if (new_direction === '+X') {
-                new_position_x = res[0].position_x + newCommand.step;
-                new_position_y = res[0].position_y;
-            } else if (new_direction === '-X') {
-                new_position_x = res[0].position_x - newCommand.step;
-                new_position_y = res[0].position_y;
-            }
-
-            if (new_direction === '+Y') {
-                new_position_y = res[0].position_y + newCommand.step;
-                new_position_x = res[0].position_x;
-            } else if (new_direction === '-Y') {
-                new_position_y = res[0].position_y - newCommand.step;
-                new_position_x = res[0].position_x;
-            }
-
-            robot_position = new robotPosition.RobotPositionModel({
-                command: newCommand.turn,
-                direction: new_direction,
-                position_x: new_position_x,
-                position_y: new_position_y,
-                last_position_date: newCommand.command_date_time,
-            });
+            robot_position = robotPositionOnInputCommand(
+                res[0].direction,
+                res[0].position_x,
+                res[0].position_y,
+                newCommand
+            );
 
         } else {
-
-            const default_direction = '+Y';
-            let default_position_x = 0;
-            let default_position_y = 0;
-
-            const new_direction = directionMapping[default_direction][newCommand.turn];
-
-
-            if (new_direction === '+X') {
-                new_position_x = default_position_x + newCommand.step;
-                new_position_x = default_position_y;
-            } else if (new_direction === '-X') {
-                new_position_x = default_position_x - newCommand.step;
-                new_position_x = default_position_y;
-            }
-
-            if (new_direction === '+Y') {
-                new_position_y = default_position_y + newCommand.step;
-                new_position_x = default_position_x;
-            } else if (new_direction === '-Y') {
-                new_position_y = default_position_y - newCommand.step;
-                new_position_x = default_position_x;
-            }
-
-            robot_position = new robotPosition.RobotPositionModel({
-                command: newCommand.turn,
-                direction: new_direction,
-                position_x: new_position_x,
-                position_y: new_position_y,
-                last_position_date: newCommand.command_date_time,
-            });
+            // default_direction = +Y, default_position = (0,0)
+            robot_position = robotPositionOnInputCommand(
+                '+Y',
+                0,
+                0,
+                newCommand
+            );
 
         }
 

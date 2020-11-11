@@ -6,7 +6,7 @@ const flattenNestedArray = require('./flattennestedarray');
  * @param {Array} givenArray 
  * @returns sum of all elements
  */
-function sumOfArrayItems(givenArray) {
+const sumOfArrayItems = givenArray => {
     return flattenNestedArray(givenArray)
         .reduce(
             (accumulator, currentValue) => accumulator + currentValue,

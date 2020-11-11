@@ -6,7 +6,7 @@ const flattenNestedArray = require('./flattennestedarray');
  * @param {Array} givenArray
  * @returns Length of the given array  
  */
-function countArrayItems(givenArray) {
+const countArrayItems = givenArray => {
     return flattenNestedArray(givenArray).length;
 }
 

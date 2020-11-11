@@ -8,7 +8,7 @@ const swaggerUi = require('swagger-ui-express'),
     swaggerDocument = require('./swagger.json');
 
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 app.set('port', port);
 app.use(express.static(__dirname + '/docs'));

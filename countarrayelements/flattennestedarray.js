@@ -5,9 +5,13 @@
  * @param {Array} givenArray Array to be flattened 
  * @returns Flattened Array
  */
-function flattenNestedArray(givenArray) {
-  var flattenedArray = [];
-  for (var i = 0; i < givenArray.length; i++) {
+const flattenNestedArray = givenArray => {
+  if (!givenArray?.length) {
+    return false;
+  }
+
+  let flattenedArray = [];
+  for (let i = 0; i < givenArray.length; i++) {
     if (Array.isArray(givenArray[i])) {
       flattenedArray = flattenedArray.concat(flattenNestedArray(givenArray[i]));
     } else {
